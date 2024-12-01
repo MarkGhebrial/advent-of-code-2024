@@ -2,8 +2,6 @@ use aoc_runner_derive::aoc_lib;
 
 /// Random utility functions
 pub mod util {
-    use std::cmp::max;
-
     pub fn merge_sort<T>(array: &[T]) -> Vec<T> 
         where T: PartialEq + PartialOrd + Clone
     {
