@@ -2,6 +2,16 @@ use aoc_runner_derive::{aoc, aoc_generator};
 
 use crate::util;
 
+pub fn part1(s: &str) -> i32 {
+    let input = parse_input(s);
+    day1_part1(&input)
+}
+
+pub fn part2(s: &str) -> i32 {
+    let input = parse_input(s);
+    day1_part2(&input)
+}
+
 #[aoc_generator(day1)]
 pub fn parse_input(s: &str) -> (Vec::<i32>, Vec::<i32>) {
     let mut out = (vec![], vec![]);
