@@ -4,5 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+codspeed-criterion-compat = "2.7.2"
 aoc-runner = "0.3.0"
 aoc-runner-derive = "0.3.0"
+solution = { git = "https://github.com/MarkGhebrial/advent-of-code-2024", version = "0.1.0", package = "advent-of-code-2024" }
+
+[[bench]]
+name = "main"
+harness = false
+path = "bench.rs"
