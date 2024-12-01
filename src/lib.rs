@@ -67,6 +67,6 @@ pub mod util {
     }
 }
 
-pub mod day1;
+mod day1;
 
 aoc_lib!{ year = 2024 }
