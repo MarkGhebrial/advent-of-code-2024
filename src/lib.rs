@@ -2,11 +2,14 @@ use aoc_runner_derive::aoc_lib;
 
 /// Random utility functions
 pub mod util {
-    pub fn merge_sort<T>(array: &[T]) -> Vec<T> 
-        where T: PartialEq + PartialOrd + Clone
+    pub fn merge_sort<T>(array: &[T]) -> Vec<T>
+    where
+        T: PartialEq + PartialOrd + Clone,
     {
         // Handle base case:
-        if array.len() == 1 { return vec![array[0].clone()]; }
+        if array.len() == 1 {
+            return vec![array[0].clone()];
+        }
         // if array.len() == 2 {
         //     if array[0] <= array[1] {
         //         return array.clone();
@@ -30,8 +33,9 @@ pub mod util {
         return merge(&sorted_a, &sorted_b);
     }
 
-    fn merge<T>(a: &[T], b: &[T]) -> Vec<T> 
-        where T: PartialOrd + Clone
+    fn merge<T>(a: &[T], b: &[T]) -> Vec<T>
+    where
+        T: PartialOrd + Clone,
     {
         let mut out: Vec<T> = Vec::with_capacity(a.len() + b.len());
 
@@ -54,13 +58,13 @@ pub mod util {
                 (Some(item_a), None) => {
                     out.push(item_a.clone());
                     index_a += 1;
-                },
+                }
                 (None, Some(item_b)) => {
                     out.push(item_b.clone());
                     index_b += 1;
-                },
-                (None, None) => break
-            }            
+                }
+                (None, None) => break,
+            }
         }
 
         out
@@ -68,5 +72,6 @@ pub mod util {
 }
 
 pub mod day1;
+pub mod day2;
 
-aoc_lib!{ year = 2024 }
+aoc_lib! { year = 2024 }
