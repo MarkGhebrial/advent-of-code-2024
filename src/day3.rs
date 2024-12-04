@@ -1,7 +1,5 @@
-use std::result;
-
-use aoc_runner_derive::{aoc, aoc_generator};
-use regex::{Match, Regex};
+use aoc_runner_derive::aoc;
+use regex::Regex;
 
 #[aoc(day3, part1)]
 pub fn part1(s: &str) -> i32 {

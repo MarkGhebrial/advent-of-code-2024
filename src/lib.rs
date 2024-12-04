@@ -4,22 +4,12 @@ use aoc_runner_derive::aoc_lib;
 pub mod util {
     pub fn merge_sort<T>(array: &[T]) -> Vec<T>
     where
-        T: PartialEq + PartialOrd + Clone,
+        T: PartialOrd + Clone,
     {
         // Handle base case:
         if array.len() == 1 {
             return vec![array[0].clone()];
         }
-        // if array.len() == 2 {
-        //     if array[0] <= array[1] {
-        //         return array.clone();
-        //     }
-        //     else {
-        //         let mut out = Vec::with_capacity(2);
-        //         out.push(array[1].clone());
-        //         out.push(array[0].clone());
-        //     }
-        // }
 
         // Split array in two
         let split_index: usize = array.len() / 2;
@@ -74,5 +64,6 @@ pub mod util {
 pub mod day1;
 pub mod day2;
 pub mod day3;
+pub mod day4;
 
 aoc_lib! { year = 2024 }
