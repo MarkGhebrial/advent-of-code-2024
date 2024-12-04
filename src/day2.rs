@@ -78,7 +78,9 @@ pub fn day2_part2(input: &Vec<Vec<i32>>) -> i32 {
 
 /// Braindead O(n^2) solution
 fn report_is_safe_with_slow_problem_dampener(report: &[i32]) -> bool {
-    if report_is_safe(&report) { return true; }
+    if report_is_safe(&report) {
+        return true;
+    }
 
     for i in 0..=report.len() {
         // Remove element at index i from the report
