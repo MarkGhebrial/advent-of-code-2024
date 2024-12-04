@@ -1,70 +1,4 @@
-use aoc_runner_derive::{aoc, aoc_generator};
-
-// pub fn part1(s: &str) -> i32 {
-//     let input = parse_input(s);
-//     day4_part1(&input)
-// }
-
-// pub fn part2(s: &str) -> i32 {
-//     let input = parse_input(s);
-//     day4_part2(&input)
-// }
-/*
-struct CharacterGrid {
-    pub grid: Vec<Vec<char>>
-}
-
-impl CharacterGrid {
-    pub fn new(rows: usize) -> Self {
-        Self {
-            grid: Vec::with_capacity(rows)
-        }
-    }
-
-    pub fn set_row(&mut self, row: usize, s: &str) {
-        self.grid[row] = s.chars().into_iter().collect();
-    }
-
-    pub fn iter(&self) -> CharacterGridIter {
-        CharacterGridIter {
-            grid: &self,
-            cur_row: 0,
-            cur_col: 0,
-        }
-    }
-}
-
-struct CharacterGridIter<'a> {
-    grid: &'a CharacterGrid,
-    cur_row: usize,
-    cur_col: usize,
-}
-
-impl<'a> Iterator for CharacterGridIter<'a> {
-    type Item = char;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if true/* if row and column indexes are out of bounds */ {
-            return None
-        }
-
-        todo!()
-    }
-}
-*/
-
-// #[aoc_generator(day4)]
-// fn parse_input(s: &str) -> GeneratorType {
-//     let lines: Vec<&str> = s.split("\n").map(|s| s.trim()).collect();
-
-//     let mut
-
-//     for (i, line) in lines.iter().enumerate() {
-//         grid.set_row(i, line);
-//     }
-
-//     grid
-// }
+use aoc_runner_derive::aoc;
 
 struct Day4Input<'a> {
     pub s: &'a str,
@@ -87,10 +21,6 @@ impl<'a> Day4Input<'a> {
         let col: usize = col.try_into().unwrap();
 
         let index: usize = (self.row_length * row) + col + row;
-
-        // if index > self.s.len() {
-        //     return ' '
-        // }
 
         match self.s.as_bytes().get(index) {
             Some(byte) => return char::from_u32(*byte as u32).unwrap(),
@@ -176,5 +106,48 @@ MXMXAXMASX";
 
 #[aoc(day4, part2)]
 pub fn day4_part2(input: &str) -> i32 {
-    todo!()
+    let mut sum = 0;
+
+    let foo = Day4Input::new(input);
+
+    // Iterate through all the characters in the grid
+    let mut row_idx = 0;
+    'outer_loop: loop {
+        for col_idx in 0..foo.row_length {
+            let cur_char = foo.get_char(row_idx, col_idx as i32);
+
+            match cur_char {
+                // Search for an "X-MAS" whenever we find an A
+                'A' => {
+                    let chars_on_1st_diagonal = (
+                        foo.get_char(row_idx + 1, col_idx as i32 + 1),
+                        foo.get_char(row_idx - 1, col_idx as i32 - 1),
+                    );
+                    let chars_on_2nd_diagonal = (
+                        foo.get_char(row_idx - 1, col_idx as i32 + 1),
+                        foo.get_char(row_idx + 1, col_idx as i32 - 1),
+                    );
+
+                    let first_mas = match chars_on_1st_diagonal {
+                        ('M', 'S') | ('S', 'M') => true,
+                        _ => false,
+                    };
+                    let second_mas = match chars_on_2nd_diagonal {
+                        ('M', 'S') | ('S', 'M') => true,
+                        _ => false,
+                    };
+
+                    if first_mas && second_mas {
+                        sum += 1
+                    }
+                }
+                ' ' => break 'outer_loop, // ' ' is returned when the index is out of bounds, so we know we are done iterating when this happens
+                _ => (),                  // Ignore all other characters
+            }
+        }
+
+        row_idx += 1;
+    }
+
+    sum
 }
