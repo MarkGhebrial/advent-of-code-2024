@@ -2,8 +2,6 @@ use std::collections::{HashMap, HashSet};
 
 use aoc_runner_derive::{aoc, aoc_generator};
 
-use crate::util;
-
 pub struct GeneratorResult {
     pub must_not_occur_before_map: HashMap<i32, HashSet<i32>>,
     pub must_not_occur_after_map: HashMap<i32, HashSet<i32>>,
@@ -15,10 +13,10 @@ pub fn part1(s: &str) -> i32 {
     day5_part1(&input)
 }
 
-pub fn part2(s: &str) -> i32 {
-    let input = parse_input(s);
-    day5_part2(&input)
-}
+// pub fn part2(s: &str) -> i32 {
+//     let input = parse_input(s);
+//     day5_part2(&input)
+// }
 
 #[aoc_generator(day5)]
 pub fn parse_input(s: &str) -> GeneratorResult {
@@ -28,7 +26,6 @@ pub fn parse_input(s: &str) -> GeneratorResult {
     let mut must_not_occur_after_map: HashMap<i32, HashSet<i32>> = HashMap::with_capacity(1178);
 
     let mut updates: Vec<Vec<i32>> = Vec::with_capacity(1200);
-
 
     let mut parsing_rules = true; // Indicates whether we are iterating through rules or updates
     for line in s.split("\n") {
@@ -65,7 +62,11 @@ pub fn parse_input(s: &str) -> GeneratorResult {
             }
         } else {
             // Parse updates
-            let update: Vec<i32> = line.trim().split(",").map(|s| s.parse::<i32>().unwrap()).collect();
+            let update: Vec<i32> = line
+                .trim()
+                .split(",")
+                .map(|s| s.parse::<i32>().unwrap())
+                .collect();
             updates.push(update);
         }
     }
@@ -75,7 +76,6 @@ pub fn parse_input(s: &str) -> GeneratorResult {
         must_not_occur_after_map,
         updates,
     }
-
 }
 
 #[aoc(day5, part1)]
@@ -83,7 +83,7 @@ pub fn day5_part1(input: &GeneratorResult) -> i32 {
     let mut sum = 0;
 
     // For each update
-        // Ensure that all the ordering rules that apply to the update's numbers apply
+    // Ensure that all the ordering rules that apply to the update's numbers apply
     for update in input.updates.iter() {
         let mut update_is_in_right_order = true;
 
@@ -114,7 +114,7 @@ pub fn day5_part1(input: &GeneratorResult) -> i32 {
         }
 
         if update_is_in_right_order {
-            sum += update[update.len()/2];
+            sum += update[update.len() / 2];
         }
     }
 
@@ -155,7 +155,7 @@ fn test_day5_part1() {
     assert_eq!(part1(&input), 143);
 }
 
-#[aoc(day5, part2)]
-pub fn day5_part2(input: &GeneratorResult) -> i32 {
-    todo!()
-}
+// #[aoc(day5, part2)]
+// pub fn day5_part2(input: &GeneratorResult) -> i32 {
+//     todo!()
+// }
