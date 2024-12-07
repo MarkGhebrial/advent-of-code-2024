@@ -1,39 +1,12 @@
 use std::collections::HashSet;
 
-use aoc_runner_derive::{aoc, aoc_generator};
-
-type GeneratorType = (Vec<Vec<u8>>, (i32, i32));
+use super::generator::*;
+use aoc_runner_derive::aoc;
 
 pub fn part1(s: &str) -> usize {
     let input = parse_input(s);
     day6_part1(&input)
 }
-
-pub fn part2(s: &str) -> i32 {
-    let input = parse_input(s);
-    day6_part2(&input)
-}
-
-#[aoc_generator(day6)]
-pub fn parse_input(s: &str) -> GeneratorType {
-
-    let mut out: Vec<Vec<u8>> = Vec::with_capacity(130);
-    let mut location_of_guard: (i32, i32) = (0, 0);
-
-    for (i, line) in s.split("\n").enumerate() {
-        let mut bytes: Vec<u8> = Vec::with_capacity(130);
-        for (j, byte) in line.bytes().enumerate() {
-            if byte == b'^' {
-                location_of_guard = (i as i32, j as i32);
-            }
-            bytes.push(byte);
-        }
-        out.push(bytes);
-    }
-
-    (out, location_of_guard)
-}
-
 
 #[aoc(day6, part1)]
 pub fn day6_part1(input: &GeneratorType) -> usize {
@@ -93,9 +66,4 @@ fn test_day6_part1() {
 ......#...";
 
     assert_eq!(part1(&input), 41);
-}
-
-#[aoc(day6, part2)]
-pub fn day6_part2(input: &GeneratorType) -> i32 {
-    todo!()
 }
